@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import ListOfUsers from './components/ListOfUsers/ListOfUsers';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -10,10 +10,10 @@ function App() {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path='/' element={<ListOfUsers />} />
-      <Route path='/update/:id' element={<UpdateList />} />
-      <Route path='/create' element={<Registration />} />
-      <Route path='/read/:id' element={<ReadList />} />
+      <Route path='/' element={<Registration />} />
+      <Route path='/update/:userId' element={<UpdateList />} />
+      <Route path='/users' element={<ListOfUsers/>} />
+      <Route path='/read/:userId' element={<ReadList />} />
 
     </Routes>
     </BrowserRouter>

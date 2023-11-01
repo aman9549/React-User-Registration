@@ -1,0 +1,29 @@
+.but_action{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.add_link{
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+}
+
+button{
+    border: none;
+}
+
+.text_read{
+    font-size: 28px;
+    font-weight: 700px;
+    color: rgb(255, 255, 255);
+}
+
+.text_read span{
+    color: #61DBFB;
+    font-weight: 500;
+}
+
+.layer{
+    padding: 5px;
+}
