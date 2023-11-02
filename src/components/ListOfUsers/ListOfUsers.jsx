@@ -5,6 +5,9 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 const ListOfUsers = () => {
   const [user, setUser] = useState([]);
+  const [address, setAddress] = useState([]);
+
+  // for user
 
   useEffect(() => {
     axios
@@ -12,6 +15,16 @@ const ListOfUsers = () => {
       .then((res) => setUser(res.data))
       .catch((err) => console.log(err));
   });
+
+  // for Addrees
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/v1/address")
+      .then((res) => setAddress(res.data))
+      .catch((err) => console.log(err));
+  });
+
+
 
   const handleDelete = (userId) =>{
     const confirm = window.confirm("would You like to delete it?")
@@ -36,7 +49,7 @@ const ListOfUsers = () => {
         </Button>
       </div>
 
-      <Table striped bordered hover>
+      <Table bordered hover>
         <thead>
           <tr>
             <th>#User ID</th>
@@ -62,7 +75,7 @@ const ListOfUsers = () => {
                   {d.status === true ? (
                     <Button variant="success">Active</Button>
                   ) : (
-                    <Button variant="danger">Dead</Button>
+                    <Button variant="danger">Inactive</Button>
                   )}
                 </td>
                 <td className="but_action">

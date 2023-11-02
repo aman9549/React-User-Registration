@@ -1,22 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { BiSolidUserCircle } from "react-icons/bi";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { BsFillTelephoneFill } from "react-icons/bs";
+
+import {AiOutlineCalendar} from 'react-icons/ai'
+import { BsFillTelephoneFill,BsBookHalf } from "react-icons/bs";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
+
 const UpdateList = () => {
+  const { userId } = useParams();
   const navigate = useNavigate();
 
-  const handleUpdate = (event) => {
+  
+
+  const[values, setValues] = useState({
+    userName: '',
+    userPassword: '',
+    phoneNumber: '', 
+    dateOfRegistration: '',  
+    status: false  
+})
+
+const handleUpdate = (event) => {
     event.preventDefault();
-    axios
-      .put("http://localhost:8080/api/v1/users/" + userId, values)
-      .then((response) => {
-        console.log(response);
-        navigate("/users");
-      });
-  };
+    axios.put("http://localhost:8080/api/v1/users/" + userId, values)
+    .then((response) =>{
+        console.log(response)
+       navigate('/users')
+    })
+}
 
   useEffect(() => {
     axios
@@ -29,15 +42,9 @@ const UpdateList = () => {
   }, []);
 
   // const [user, setUser] = useState([]);
-  const { userId } = useParams();
+  
 
-  const [values, setValues] = useState({
-    userName: "",
-    userPassword: "",
-    phoneNumber: "",
-    dateOfRegistration: "",
-    status: true,
-  });
+  
 
   return (
     <div className="form_page">
@@ -85,11 +92,11 @@ const UpdateList = () => {
               />
             </div>
             <div className="input">
-              <BsFillTelephoneFill className="pp" />
+              <AiOutlineCalendar className="pp" />
               <input
                 type="text"
                 placeholder="Date"
-                name="date"
+                name="dateOfRegistration"
                 value={values.dateOfRegistration}
                 onChange={(e) =>
                   setValues({ ...values, dateOfRegistration: e.target.value })
@@ -97,11 +104,11 @@ const UpdateList = () => {
               />
             </div>
             <div className="input">
-              <BsFillTelephoneFill className="pp" />
+              <BsBookHalf className="pp" />
               <input
                 type="text"
                 placeholder="Status"
-                name="phoneNumber"
+                name="status"
                 value={values.status}
                 onChange={(e) =>
                   setValues({ ...values, status: e.target.value })
