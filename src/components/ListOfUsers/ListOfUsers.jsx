@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 const ListOfUsers = () => {
   const [user, setUser] = useState([]);
-  const [address, setAddress] = useState([]);
+ 
 
   // for user
 
@@ -16,13 +16,7 @@ const ListOfUsers = () => {
       .catch((err) => console.log(err));
   });
 
-  // for Addrees
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/v1/address")
-      .then((res) => setAddress(res.data))
-      .catch((err) => console.log(err));
-  });
+
 
 
 
@@ -58,7 +52,7 @@ const ListOfUsers = () => {
             <th>User Phone Number</th>
             <th>Date of Registration</th>
             <th>Status</th>
-            {/* <th>Full Address</th> */}
+            <th>Full Address</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -78,6 +72,11 @@ const ListOfUsers = () => {
                     <Button variant="danger">Inactive</Button>
                   )}
                 </td>
+                {d.addresses.map(data =>{
+                   return <td>{data.fullAddress}</td>
+                }
+                            
+                )}
                 <td className="but_action">
                  <Link to={`/read/${d.userId}`}><Button variant="primary">Read</Button></Link> 
                  <Link to={`/update/${d.userId}`}> <Button variant="success">Update</Button></Link>
