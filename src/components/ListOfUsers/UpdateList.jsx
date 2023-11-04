@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BiSolidUserCircle } from "react-icons/bi";
 import { RiLockPasswordFill } from "react-icons/ri";
-
+import { MdOutlineEditLocation } from 'react-icons/md';
 import {AiOutlineCalendar} from 'react-icons/ai'
 import { BsFillTelephoneFill,BsBookHalf } from "react-icons/bs";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { VscChromeClose } from 'react-icons/vsc';
+import Button from "react-bootstrap/Button";
 
 const UpdateList = () => {
   const { userId } = useParams();
@@ -19,7 +20,8 @@ const UpdateList = () => {
     userPassword: '',
     phoneNumber: '', 
     dateOfRegistration: '',  
-    status: false  
+    status: false ,
+    addresses: [{ fullAddress: '' }],
 })
 
 const handleUpdate = (event) => {
@@ -40,6 +42,32 @@ const handleUpdate = (event) => {
       .catch((err) => console.log(err));
     // eslint-disable-next-line
   }, []);
+
+  const handleAddressChange = (event, index) => {
+    const { name, value } = event.target;
+    const updatedAddresses = [...values.addresses];
+    updatedAddresses[index] = { ...updatedAddresses[index], [name]: value };
+    setValues({
+      ...values,
+      addresses: updatedAddresses,
+    });
+  };
+
+  const addAddress = () => {
+    setValues({
+      ...values,
+      addresses: [...values.addresses, { fullAddress: '' }],
+    });
+  };
+
+  const removeAddress = (index) => {
+    const updatedAddresses = [...values.addresses];
+    updatedAddresses.splice(index, 1);
+    setValues({
+      ...values,
+      addresses: updatedAddresses,
+    });
+  };
 
   // const [user, setUser] = useState([]);
   
@@ -115,11 +143,37 @@ const handleUpdate = (event) => {
                 }
               />
             </div>
+            {values.addresses.map((address, index) => (
+  <div className="input" key={index}>
+    <MdOutlineEditLocation className="pp" />
+    <input
+      placeholder={`Full address ${index}`}
+      type="text"
+      name='fullAddress'
+      value={values.addresses[index].fullAddress}
+      onChange={(event) => handleAddressChange(event, index)}
+    />
+    <VscChromeClose
+      onClick={() => removeAddress(index)}
+      className="pp point"
+    />
+    <br />
+  </div>
+))}
 
             {/* <div className="input">
         <IoLocationSharp className='pp' />
         <input type="text" placeholder='Full Address' />
         </div> */}
+          </div>
+          <div className="submit-container">
+            <Button
+              variant="success"
+              onClick={addAddress}
+              className="submit pp"
+            >
+              Add Address +
+            </Button>
           </div>
           <div className="submit-container">
             <button className="submit pp">Submit</button>

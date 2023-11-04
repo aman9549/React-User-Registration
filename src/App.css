@@ -27,3 +27,7 @@ button{
 .layer{
     padding: 5px;
 }
+
+.point{
+    cursor: pointer;
+}

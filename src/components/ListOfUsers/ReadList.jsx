@@ -34,10 +34,21 @@ import {AiOutlineArrowLeft} from 'react-icons/ai'
           <div className="passwerd text_read"><span className="col">Password : </span>{user.userPassword}</div>
           <div className="phone text_read"><span className="col">Phone : </span> {user.phoneNumber}</div>
           <div className="date text_read"><span className="col">Date : </span>{user.dateOfRegistration}</div>
+          {user.addresses && user.addresses.length > 0 && (
+        <div className="text_read">
+          <span className="address_">Full Addresses</span>
+          <ul>
+            {user.addresses.map((address, index) => (
+              <li key={index}>{address.fullAddress}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+          {/* <div className="date text_read"><span className="col">Full Address : </span>{user.dateOfRegistration}</div> */}
           <div className="state text_read"><span className="col">State : </span>{user.status=== true ? (
                     <Button variant="success">Active</Button>
                   ) : (
-                    <Button variant="danger">Dead</Button>
+                    <Button variant="danger">Inactive</Button>
                   )}</div>
          
          <Link to={`/update/${userId}`}> <Button variant="secondary">Edit</Button></Link>
